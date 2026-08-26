@@ -1,0 +1,35 @@
+{
+  "buttons": {
+    "add_me": "Hinzufügen",
+    "source": "Quelle",
+    "support": "Support",
+    "help": "Hilfe",
+    "owner": "Besitzer",
+    "language": "Sprache",
+    "back": "Zurück"
+  },
+  "home_text": "🛡️ **SUPER GUARDIAN BOT**\n\n⚡ **Telegram-Gruppensicherheit der nächsten Generation**\n\n**Schnell · Leistungsstark · Automatisiert**",
+  "source_text": "📡 **Quellcode**\n\nOffizielle Links und Repository von Super Guardian Bot.",
+  "help_main_text": "📖 **Hilfe**\n\nWählen Sie unten eine Schutzkategorie aus.",
+  "help_categories": {
+    "protection": "Schutz",
+    "members": "Mitglieder",
+    "nsfw": "NSFW-Schutz",
+    "flood": "Anti-Flood",
+    "link": "Anti-Link",
+    "warnings": "Warnungen",
+    "lockdown": "Sperre",
+    "commands": "Befehle"
+  },
+  "help_details": {
+    "prot": "🛡️ **Schutz**\n\nErweiterte Abwehr gegen automatisierte Raids, Bot-Angriffe und Weiterleitungs-Spam.",
+    "mem": "👤 **Mitglieder**\n\nÜberprüfung neuer Benutzer, Begrüßungsnachrichten und Beitritts-Captchas.",
+    "nsfw": "📖 **NSFW-Schutz**\n\nAutomatisches Löschen nicht jugendfreier Medien (Bilder/Videos/GIFs) und Stummschaltung.",
+    "flood": "🌊 **Anti-Flood**\n\nBegrenzung der Nachrichtengeschwindigkeit gegen massives Textüberfluten.",
+    "link": "🔗 **Anti-Link**\n\nAutomatisches Filtern von Telegram-Einladungslinks und externen URLs.",
+    "warn": "⚠️ **Warnungen**\n\nVerwarnungssystem mit anpassbaren Strafstufen (Muten, Kicken, Bannen).",
+    "lock": "🔒 **Sperre**\n\nSofortige Deaktivierung von Medien- oder Schreibberechtigungen bei Raids.",
+    "cmds": "📖 **Befehle**\n\n**Admin-Befehle:** `/status` `/config` `/duration 24h` `/newmember on` `/antilink on` `/antiflood on` `/nsfw on` `/lockdown on` `/warn` `/unwarn` `/warnings` `/whitelist` `/unwhitelist` `/setbadword` `/delbadword` `/badwords`"
+  },
+  "lang_selected": "🌐 Sprache auf Deutsch eingestellt."
+}
