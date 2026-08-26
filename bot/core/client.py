@@ -12,7 +12,7 @@ import asyncio
 import logging
 import sys
 import time
-from typing import Any, Callable, Coroutine, Dict, List, Optional, Union
+from typing import Any, List, Optional
 
 from pyrogram import Client
 from pyrogram.enums import ParseMode
@@ -36,9 +36,7 @@ class ClientHealthTracker:
         self.boot_time: float = time.time()
         self.is_connected: bool = False
         self.total_updates_processed: int = 0
-        self.total_errors_intercepted: int = 0
         self.last_heartbeat: float = time.time()
-        self.peer_flood_count: int = 0
 
     def record_update(self) -> None:
         self.total_updates_processed += 1
@@ -117,3 +115,4 @@ class GuardianClient(Client):
 
 
 client = GuardianClient()
+        
