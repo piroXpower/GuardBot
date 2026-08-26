@@ -1,12 +1,8 @@
 """
 ================================================================================
-SUPER GUARDIAN BOT - DISTRIBUTED ASYNC WORKER BOOTSTRAPPER
+SUPER GUARDIAN BOT - WORKER BOOTSTRAPPER (WITHOUT REDIS)
 ================================================================================
 Module: bot.__main__
-Description:
-    Worker thread orchestrator. Replaces the default asyncio loop with uvloop,
-    binds POSIX signal traps, initializes the Redis cache pool, verifies MTProto
-    authentication, and drives non-blocking update ingestion.
 ================================================================================
 """
 
@@ -32,7 +28,6 @@ main_logger = logging.getLogger("GuardianBot.Main")
 
 
 class GuardianBootstrapper:
-    """Manages the startup, health checks, and shutdown lifecycle."""
     def __init__(self) -> None:
         self.is_running: bool = False
         self._shutdown_event: Optional[asyncio.Event] = None
@@ -41,21 +36,23 @@ class GuardianBootstrapper:
         if not self.is_running:
             return
 
-        main_logger.warning("Received shutdown signal: %s. Cleaning up...", signal_name)
+        main_logger.warning("Received shutdown signal: %s. Performing final backup...", signal_name)
         self.is_running = False
 
+        # Perform a final backup on shutdown before closing
         if app.is_initialized:
+            try:
+                await cache_manager.backup_to_channel(app)
+            except Exception as e:
+                main_logger.error("Final backup failed: %s", e)
+
             try:
                 await app.stop()
                 main_logger.info("Telegram MTProto gateway disconnected.")
             except Exception as e:
                 main_logger.error("Error disconnecting Telegram client: %s", e)
 
-        try:
-            await cache_manager.close()
-            main_logger.info("Redis cache pool closed.")
-        except Exception as e:
-            main_logger.error("Error closing Redis pool: %s", e)
+        await cache_manager.close()
 
         if self._shutdown_event:
             self._shutdown_event.set()
@@ -64,18 +61,19 @@ class GuardianBootstrapper:
         self.is_running = True
         self._shutdown_event = asyncio.Event()
 
-        main_logger.info("Initializing distributed Redis cache pool...")
-        await cache_manager.initialize()
-
         main_logger.info("Connecting to Telegram MTProto Gateway...")
         await app.start()
 
+        # Load database from Telegram Channel & start auto-sync
+        await cache_manager.load_from_channel(app)
+        cache_manager.start_auto_backup_loop(app)
+
         bot_account = await app.get_me()
         main_logger.info("=" * 60)
-        main_logger.info("SUPER GUARDIAN BOT OPERATIONAL")
+        main_logger.info("SUPER GUARDIAN BOT OPERATIONAL (NO REDIS)")
         main_logger.info("Identity : @%s (ID: %s)", bot_account.username, bot_account.id)
         main_logger.info("Commands : %d registered", registry.total_commands)
-        main_logger.info("Version  : %s", __version__)
+        main_logger.info("Storage  : In-Memory + Channel Backup Sync")
         main_logger.info("=" * 60)
 
         loop = asyncio.get_running_loop()
@@ -108,4 +106,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-            
+    
