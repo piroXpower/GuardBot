@@ -1,0 +1,35 @@
+{
+  "buttons": {
+    "add_me": "M'ajouter",
+    "source": "Source",
+    "support": "Support",
+    "help": "Aide",
+    "owner": "Créateur",
+    "language": "Langue",
+    "back": "Retour"
+  },
+  "home_text": "🛡️ **SUPER GUARDIAN BOT**\n\n⚡ **Sécurité Nouvelle Génération pour Groupes Telegram**\n\n**Rapide · Puissant · Automatisé**",
+  "source_text": "📡 **Code Source**\n\nLiens officiels et dépôt de Super Guardian Bot.",
+  "help_main_text": "📖 **Aide**\n\nChoisissez une catégorie de protection ci-dessous.",
+  "help_categories": {
+    "protection": "Protection",
+    "members": "Membres",
+    "nsfw": "Garde NSFW",
+    "flood": "Anti-Flood",
+    "link": "Anti-Liens",
+    "warnings": "Avertissements",
+    "lockdown": "Verrouillage",
+    "commands": "Commandes"
+  },
+  "help_details": {
+    "prot": "🛡️ **Protection**\n\nBouclier avancé contre les raids, les attaques de bots et le spam récurrent.",
+    "mem": "👤 **Membres**\n\nVérifiez les nouveaux membres, configurez les messages d'accueil et les captchas.",
+    "nsfw": "📖 **Garde NSFW**\n\nSuppression automatique des médias pour adultes (photos/vidéos/GIFs) et mise en sourdine.",
+    "flood": "🌊 **Anti-Flood**\n\nLimitation de la cadence des messages pour préserver la lisibilité du salon.",
+    "link": "🔗 **Anti-Liens**\n\nFiltrage automatique des liens d'invitation Telegram et des adresses URL non autorisées.",
+    "warn": "⚠️ **Avertissements**\n\nCompteur d'avertissements avec sanctions modulables (mute, kick, ban).",
+    "lock": "🔒 **Verrouillage**\n\nBlocage d'urgence des permissions de messagerie ou de médias en cas de raid.",
+    "cmds": "📖 **Commandes**\n\n**Commandes Admin:** `/status` `/config` `/duration 24h` `/newmember on` `/antilink on` `/antiflood on` `/nsfw on` `/lockdown on` `/warn` `/unwarn` `/warnings` `/whitelist` `/unwhitelist` `/setbadword` `/delbadword` `/badwords`"
+  },
+  "lang_selected": "🌐 Langue définie sur Français."
+}
