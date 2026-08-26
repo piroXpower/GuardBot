@@ -16,7 +16,9 @@ OWNER_USERNAME: str = os.getenv("OWNER_USERNAME", "YourTelegramHandle")
 SUPPORT_CHAT: str = os.getenv("SUPPORT_CHAT", "https://t.me/YourSupportGroup")
 GITHUB_REPO: str = os.getenv("GITHUB_REPO", "https://github.com/your-repo")
 CHANNEL_LINK: str = os.getenv("CHANNEL_LINK", "https://t.me/YourChannel")
-REDIS_URL: str = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+
+# Your private Telegram storage channel ID (must start with -100)
+LOG_CHANNEL_ID: int = int(os.getenv("LOG_CHANNEL_ID", "-1001234567890"))
 
 SUPPORTED_LANGUAGES: dict[str, str] = {
     "en": "🇺🇸 English",
