@@ -1,0 +1,35 @@
+{
+  "buttons": {
+    "add_me": "Adicionar-me",
+    "source": "Fonte",
+    "support": "Suporte",
+    "help": "Ajuda",
+    "owner": "Dono",
+    "language": "Idioma",
+    "back": "Voltar"
+  },
+  "home_text": "🛡️ **SUPER GUARDIAN BOT**\n\n⚡ **Segurança de Próxima Geração para Grupos do Telegram**\n\n**Rápido · Poderoso · Automatizado**",
+  "source_text": "📡 **Código Fonte**\n\nLinks oficiais e repositório do Super Guardian Bot.",
+  "help_main_text": "📖 **Ajuda**\n\nEscolha uma categoria de proteção abaixo.",
+  "help_categories": {
+    "protection": "Proteção",
+    "members": "Membros",
+    "nsfw": "Guarda NSFW",
+    "flood": "Anti-Flood",
+    "link": "Anti-Links",
+    "warnings": "Avisos",
+    "lockdown": "Bloqueio",
+    "commands": "Comandos"
+  },
+  "help_details": {
+    "prot": "🛡️ **Proteção**\n\nEscudo contra ataques maliciosos, invasões automatizadas e spam de encaminhamento.",
+    "mem": "👤 **Membros**\n\nVerifique novos participantes, configure boas-vindas e exija verificação por captcha.",
+    "nsfw": "📖 **Guarda NSFW**\n\nFiltro inteligente para fotos/vídeos/GIFs. Mídias adultas são excluídas e o usuário é silenciado.",
+    "flood": "🌊 **Anti-Flood**\n\nControle o envio rápido de mensagens para manter o fluxo do chat limpo.",
+    "link": "🔗 **Anti-Links**\n\nFiltre links de convite do Telegram e URLs externas automaticamente.",
+    "warn": "⚠️ **Avisos**\n\nSistema de advertências com limites configuráveis (mutar, expulsar, banir).",
+    "lock": "🔒 **Bloqueio**\n\nTrave instantaneamente o envio de mídias ou mensagens durante ataques ao grupo.",
+    "cmds": "📖 **Comandos**\n\n**Comandos Admin:** `/status` `/config` `/duration 24h` `/newmember on` `/antilink on` `/antiflood on` `/nsfw on` `/lockdown on` `/warn` `/unwarn` `/warnings` `/whitelist` `/unwhitelist` `/setbadword` `/delbadword` `/badwords`"
+  },
+  "lang_selected": "🌐 Idioma alterado para Português."
+}
