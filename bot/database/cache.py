@@ -1,131 +1,168 @@
 """
 ================================================================================
-SUPER GUARDIAN BOT - REDIS CACHE
+SUPER GUARDIAN BOT - HYBRID IN-MEMORY & TELEGRAM CHANNEL STORAGE
 ================================================================================
 Module: bot.database.cache
+Description:
+    Zero-Redis storage layer. Provides sub-millisecond in-memory dictionary
+    lookups for rate-limiting, warnings, and chat configs, combined with an
+    automated asynchronous JSON backup loop to a private Telegram channel.
 ================================================================================
 """
 
 from __future__ import annotations
 
+import asyncio
+import io
 import logging
-from typing import Optional
-import redis.asyncio as aioredis
-from redis.asyncio.connection import ConnectionPool
+import os
+import time
+from typing import Any, Dict, List, Optional
 
-from config import REDIS_URL
+import ujson as json
+from pyrogram import Client
 
-logger = logging.getLogger("GuardianBot.Cache")
+from config import LOG_CHANNEL_ID
+
+logger = logging.getLogger("GuardianBot.ChannelDB")
+
+BACKUP_INTERVAL_SECONDS: int = 300  # Syncs JSON to channel every 5 minutes
 
 
-class DistributedCacheManager:
-    def __init__(self, connection_url: str) -> None:
-        self.url: str = connection_url
-        self.pool: Optional[ConnectionPool] = None
-        self.client: Optional[aioredis.Redis] = None
-        self._is_connected: bool = False
+class HybridChannelStorage:
+    """In-memory state engine backed up asynchronously to a private Telegram channel."""
+
+    def __init__(self) -> None:
+        self.chat_configs: Dict[str, Dict[str, str]] = {}
+        self.user_languages: Dict[str, str] = {}
+        self.warnings: Dict[str, int] = {}
+        self.rate_limits: Dict[str, List[float]] = {}
+        self.is_loaded: bool = False
+        self._lock = asyncio.Lock()
+        self._backup_task: Optional[asyncio.Task] = None
+
+    # --------------------------------------------------------------------------
+    # Fast In-Memory Operations
+    # --------------------------------------------------------------------------
 
     async def initialize(self) -> None:
-        if self._is_connected:
-            return
-        try:
-            self.pool = ConnectionPool.from_url(
-                self.url,
-                max_connections=250,
-                decode_responses=True,
-                socket_timeout=5.0,
-                socket_connect_timeout=5.0,
-            )
-            self.client = aioredis.Redis(connection_pool=self.pool)
-            await self.client.ping()
-            self._is_connected = True
-        except Exception as exc:
-            logger.critical("Failed to connect to Redis cache: %s", exc)
-            self._is_connected = False
+        """Compatibility hook for bootstrapper."""
+        logger.info("In-memory database cache initialized.")
 
     async def close(self) -> None:
-        if not self._is_connected or not self.client:
-            return
-        await self.client.aclose()
-        if self.pool:
-            await self.pool.disconnect()
-        self._is_connected = False
+        """Stops background tasks and cancels backup loop."""
+        if self._backup_task and not self._backup_task.done():
+            self._backup_task.cancel()
+        logger.info("Storage engine closed cleanly.")
 
     async def check_flood_rate_limit(self, chat_id: int, user_id: int, limit: int = 5, window: int = 3) -> bool:
-        if not self._is_connected or not self.client:
-            return False
-        key = f"flood:{chat_id}:{user_id}"
-        try:
-            async with self.client.pipeline(transaction=True) as pipe:
-                pipe.incr(key)
-                pipe.expire(key, window)
-                res = await pipe.execute()
-            return res[0] > limit
-        except Exception:
-            return False
+        """Sliding-window atomic rate limiter via in-memory timestamps."""
+        key = f"{chat_id}:{user_id}"
+        now = time.time()
+        stamps = self.rate_limits.get(key, [])
+        stamps = [t for t in stamps if now - t < window]
+        stamps.append(now)
+        self.rate_limits[key] = stamps
+        return len(stamps) > limit
 
-    async def set_user_language(self, user_id: int, lang_code: str) -> bool:
-        if not self._is_connected or not self.client:
-            return False
-        try:
-            await self.client.set(f"user_lang:{user_id}", lang_code)
-            return True
-        except Exception:
-            return False
+    async def get_chat_setting(self, chat_id: int, setting: str, default: str = "off") -> str:
+        return self.chat_configs.get(str(chat_id), {}).get(setting, default)
 
-    async def get_user_language(self, user_id: int) -> str:
-        if not self._is_connected or not self.client:
-            return "en"
-        try:
-            lang = await self.client.get(f"user_lang:{user_id}")
-            return lang if lang else "en"
-        except Exception:
-            return "en"
-
-    async def get_chat_setting(self, chat_id: int, setting_name: str, default: str = "off") -> str:
-        if not self._is_connected or not self.client:
-            return default
-        try:
-            val = await self.client.hget(f"chat_cfg:{chat_id}", setting_name)
-            return val if val is not None else default
-        except Exception:
-            return default
-
-    async def set_chat_setting(self, chat_id: int, setting_name: str, value: str) -> bool:
-        if not self._is_connected or not self.client:
-            return False
-        try:
-            await self.client.hset(f"chat_cfg:{chat_id}", setting_name, value)
-            return True
-        except Exception:
-            return False
+    async def set_chat_setting(self, chat_id: int, setting: str, value: str) -> None:
+        cid = str(chat_id)
+        if cid not in self.chat_configs:
+            self.chat_configs[cid] = {}
+        self.chat_configs[cid][setting] = value
 
     async def add_chat_warning(self, chat_id: int, user_id: int) -> int:
-        if not self._is_connected or not self.client:
-            return 1
+        key = f"{chat_id}:{user_id}"
+        self.warnings[key] = self.warnings.get(key, 0) + 1
+        return self.warnings[key]
+
+    async def reset_chat_warnings(self, chat_id: int, user_id: int) -> None:
+        self.warnings.pop(f"{chat_id}:{user_id}", None)
+
+    async def get_user_language(self, user_id: int) -> str:
+        return self.user_languages.get(str(user_id), "en")
+
+    async def set_user_language(self, user_id: int, lang: str) -> None:
+        self.user_languages[str(user_id)] = lang
+
+    # --------------------------------------------------------------------------
+    # Telegram Channel Synchronization
+    # --------------------------------------------------------------------------
+
+    async def load_from_channel(self, client: Client) -> None:
+        """Downloads the latest database JSON document from the storage channel upon startup."""
         try:
-            return await self.client.incr(f"warns:{chat_id}:{user_id}")
-        except Exception:
-            return 1
+            logger.info("Fetching latest database snapshot from channel %s...", LOG_CHANNEL_ID)
+            async for message in client.get_chat_history(LOG_CHANNEL_ID, limit=15):
+                if message.document and message.document.file_name == "guardian_db.json":
+                    file_bytes = await client.download_media(message, in_memory=True)
+                    data = json.loads(file_bytes.getvalue().decode("utf-8"))
+                    self.chat_configs = data.get("chat_configs", {})
+                    self.user_languages = data.get("user_languages", {})
+                    self.warnings = data.get("warnings", {})
+                    self.is_loaded = True
+                    logger.info("Database loaded successfully from Telegram channel (%d chats).", len(self.chat_configs))
+                    return
+            logger.warning("No previous database backup found. Initializing clean storage.")
+            self.is_loaded = True
+        except Exception as e:
+            logger.error("Failed to load database from channel: %s", e)
+            self.is_loaded = True
 
-    async def reset_chat_warnings(self, chat_id: int, user_id: int) -> bool:
-        if not self._is_connected or not self.client:
-            return False
-        try:
-            await self.client.delete(f"warns:{chat_id}:{user_id}")
-            return True
-        except Exception:
-            return False
+    async def backup_to_channel(self, client: Client) -> None:
+        """Dumps in-memory state to a JSON file and uploads it to the private channel."""
+        async with self._lock:
+            try:
+                payload = {
+                    "chat_configs": self.chat_configs,
+                    "user_languages": self.user_languages,
+                    "warnings": self.warnings,
+                    "timestamp": time.time(),
+                }
+                raw_data = json.dumps(payload, indent=2).encode("utf-8")
+                doc = io.BytesIO(raw_data)
+                doc.name = "guardian_db.json"
+
+                await client.send_document(
+                    chat_id=LOG_CHANNEL_ID,
+                    document=doc,
+                    caption=(
+                        f"📦 **Database Auto-Backup**\n"
+                        f"🕒 `{time.strftime('%Y-%m-%d %H:%M:%S UTC', time.gmtime())}`\n"
+                        f"👥 Active Chats: `{len(self.chat_configs)}`\n"
+                        f"🌐 Users Cached: `{len(self.user_languages)}`"
+                    ),
+                )
+                logger.info("Database successfully backed up to Telegram channel.")
+            except Exception as e:
+                logger.error("Failed to upload backup to Telegram channel: %s", e)
+
+    def start_auto_backup_loop(self, client: Client) -> None:
+        """Spawns the background synchronization task."""
+        self._backup_task = asyncio.create_task(self._auto_backup_worker(client))
+
+    async def _auto_backup_worker(self, client: Client) -> None:
+        while True:
+            try:
+                await asyncio.sleep(BACKUP_INTERVAL_SECONDS)
+                await self.backup_to_channel(client)
+            except asyncio.CancelledError:
+                break
+            except Exception as loop_err:
+                logger.error("Auto backup worker error: %s", loop_err)
 
 
-cache_manager = DistributedCacheManager(REDIS_URL)
+# Global storage instance
+cache_manager = HybridChannelStorage()
 
 async def check_flood_rate_limit(chat_id: int, user_id: int, limit: int = 5, window: int = 3) -> bool:
     return await cache_manager.check_flood_rate_limit(chat_id, user_id, limit, window)
 
-async def set_user_language(user_id: int, lang_code: str) -> bool:
-    return await cache_manager.set_user_language(user_id, lang_code)
+async def set_user_language(user_id: int, lang_code: str) -> None:
+    await cache_manager.set_user_language(user_id, lang_code)
 
 async def get_user_language(user_id: int) -> str:
     return await cache_manager.get_user_language(user_id)
-        
