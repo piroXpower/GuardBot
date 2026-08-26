@@ -76,3 +76,4 @@ def get_lang_kb() -> InlineKeyboardMarkup:
         buttons.append(row)
     buttons.append([InlineKeyboardButton("◀️ Back", callback_data="btn_home")])
     return InlineKeyboardMarkup(buttons)
+                
