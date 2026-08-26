@@ -1,0 +1,35 @@
+{
+  "buttons": {
+    "add_me": "Beni Ekle",
+    "source": "Kaynak",
+    "support": "Destek",
+    "help": "Yardım",
+    "owner": "Sahip",
+    "language": "Dil",
+    "back": "Geri"
+  },
+  "home_text": "🛡️ **SUPER GUARDIAN BOT**\n\n⚡ **Yeni Nesil Telegram Grup Güvenliği**\n\n**Hızlı · Güçlü · Otomatik**",
+  "source_text": "📡 **Kaynak Kod**\n\nSuper Guardian Bot resmi bağlantıları ve kaynak kodu.",
+  "help_main_text": "📖 **Yardım**\n\nAşağıdan bir koruma kategorisi seçin.",
+  "help_categories": {
+    "protection": "Koruma",
+    "members": "Üyeler",
+    "nsfw": "NSFW Koruması",
+    "flood": "Anti-Flood",
+    "link": "Anti-Link",
+    "warnings": "Uyarılar",
+    "lockdown": "Kilitleme",
+    "commands": "Komutlar"
+  },
+  "help_details": {
+    "prot": "🛡️ **Koruma**\n\nOtomatik raid saldırılarına, bot akınlarına ve spam mesajlara karşı gelişmiş kalkan.",
+    "mem": "👤 **Üyeler**\n\nYeni katılanları doğrulayın, karşılama mesajı ayarlayın ve giriş doğrulaması ekleyin.",
+    "nsfw": "📖 **NSFW Koruması**\n\nUygunsuz medya içeriklerini (+18) otomatik olarak siler ve göndereni susturur.",
+    "flood": "🌊 **Anti-Flood**\n\nSohbet akışını korumak için seri mesaj gönderimini sınırlandırır.",
+    "link": "🔗 **Anti-Link**\n\nTelegram davet bağlantılarını ve harici internet sitelerini engeller.",
+    "warn": "⚠️ **Uyarılar**\n\nÖzelleştirilebilir ceza eşiklerine sahip uyarı sistemi (sustur, at, yasakla).",
+    "lock": "🔒 **Kilitleme**\n\nRaid durumunda grup yazma veya medya izinlerini tek komutla dondurun.",
+    "cmds": "📖 **Komutlar**\n\n**Yönetici Komutları:** `/status` `/config` `/duration 24h` `/newmember on` `/antilink on` `/antiflood on` `/nsfw on` `/lockdown on` `/warn` `/unwarn` `/warnings` `/whitelist` `/unwhitelist` `/setbadword` `/delbadword` `/badwords`"
+  },
+  "lang_selected": "🌐 Dil Türkçe olarak ayarlandı."
+}
