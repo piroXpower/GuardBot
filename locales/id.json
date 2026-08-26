@@ -1,0 +1,35 @@
+{
+  "buttons": {
+    "add_me": "Tambahkan Saya",
+    "source": "Sumber",
+    "support": "Bantuan",
+    "help": "Panduan",
+    "owner": "Pemilik",
+    "language": "Bahasa",
+    "back": "Kembali"
+  },
+  "home_text": "🛡️ **SUPER GUARDIAN BOT**\n\n⚡ **Keamanan Grup Telegram Generasi Berikutnya**\n\n**Cepat · Kuat · Otomatis**",
+  "source_text": "📡 **Sumber**\n\nSumber resmi dan tautan Super Guardian Bot.",
+  "help_main_text": "📖 **Panduan Bantuan**\n\nPilih kategori perlindungan di bawah ini.",
+  "help_categories": {
+    "protection": "Perlindungan",
+    "members": "Anggota",
+    "nsfw": "Filter NSFW",
+    "flood": "Anti-Flood",
+    "link": "Anti-Link",
+    "warnings": "Peringatan",
+    "lockdown": "Kunci Grup",
+    "commands": "Perintah"
+  },
+  "help_details": {
+    "prot": "🛡️ **Perlindungan**\n\nPerlindungan tingkat lanjut terhadap serangan raid, spam, dan bot jahat.",
+    "mem": "👤 **Anggota**\n\nVerifikasi anggota baru, atur pesan sambutan, dan pasang captcha.",
+    "nsfw": "📖 **Filter NSFW**\n\nDeteksi otomatis media sensitif/18+. Media dihapus dan pengirim dibisukan.",
+    "flood": "🌊 **Anti-Flood**\n\nBatasi laju pengiriman pesan beruntun agar obrolan tetap rapi.",
+    "link": "🔗 **Anti-Link**\n\nHapus otomatis tautan undangan Telegram dan URL berbahaya.",
+    "warn": "⚠️ **Peringatan**\n\nSistem akumulasi pelanggaran dengan tindakan terukur (mute, kick, ban).",
+    "lock": "🔒 **Kunci Grup**\n\nKunci izin media atau obrolan secara instan selama serangan raid.",
+    "cmds": "📖 **Perintah**\n\n**Perintah Admin:** `/status` `/config` `/duration 24h` `/newmember on` `/antilink on` `/antiflood on` `/nsfw on` `/lockdown on` `/warn` `/unwarn` `/warnings` `/whitelist` `/unwhitelist` `/setbadword` `/delbadword` `/badwords`"
+  },
+  "lang_selected": "🌐 Bahasa diatur ke Bahasa Indonesia."
+}
