@@ -1,0 +1,35 @@
+{
+  "buttons": {
+    "add_me": "Add Me",
+    "source": "Source",
+    "support": "Support",
+    "help": "Help",
+    "owner": "Owner",
+    "language": "Language",
+    "back": "Back"
+  },
+  "home_text": "🛡️ **SUPER GUARDIAN BOT**\n\n⚡ **Next-Generation Telegram Group Security**\n\n**Fast · Powerful · Automated**",
+  "source_text": "📡 **Source**\n\nSuper Guardian Bot source and official links.",
+  "help_main_text": "📖 **Help**\n\nChoose a protection category below.",
+  "help_categories": {
+    "protection": "Protection",
+    "members": "Members",
+    "nsfw": "NSFW Guard",
+    "flood": "Anti-Flood",
+    "link": "Anti-Link",
+    "warnings": "Warnings",
+    "lockdown": "Lockdown",
+    "commands": "Commands"
+  },
+  "help_details": {
+    "prot": "🛡️ **Protection**\n\nAdvanced shield against malicious attacks, automated raids, and malicious forward spam.",
+    "mem": "👤 **Members**\n\nVerify incoming users, configure welcome verifications, and enforce entry captchas.",
+    "nsfw": "📖 **NSFW Guard**\n\nOptional real classifier integration for photos/videos/GIFs. Flagged media is deleted and the sender is muted.",
+    "flood": "🌊 **Anti-Flood**\n\nRate-limit incoming user messages to keep chat flow readable and mitigate flooding.",
+    "link": "🔗 **Anti-Link**\n\nAutomatically filter out Telegram invite links, suspicious URLs, and external mentions.",
+    "warn": "⚠️ **Warnings**\n\nConfigurable strike counter with customizable punishment thresholds (mute, kick, ban).",
+    "lock": "🔒 **Lockdown**\n\nInstantly lock specific media permissions, text chat, or full group interactions during raids.",
+    "cmds": "📖 **Commands**\n\n**Admin commands:** `/status` `/config` `/duration 24h` `/newmember on` `/antilink on` `/antiflood on` `/nsfw on` `/lockdown on` `/warn` `/unwarn` `/warnings` `/whitelist` `/unwhitelist` `/setbadword` `/delbadword` `/badwords`"
+  },
+  "lang_selected": "🌐 Language set to English."
+}
