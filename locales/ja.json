@@ -1,0 +1,35 @@
+{
+  "buttons": {
+    "add_me": "グループに追加",
+    "source": "ソース",
+    "support": "サポート",
+    "help": "ヘルプ",
+    "owner": "開発者",
+    "language": "言語",
+    "back": "戻る"
+  },
+  "home_text": "🛡️ **SUPER GUARDIAN BOT**\n\n⚡ **次世代Telegramグループセキュリティ**\n\n**高速 · 強力 · 完全自動化**",
+  "source_text": "📡 **ソースコード**\n\nSuper Guardian Botの公式リンクおよびリポジトリ。",
+  "help_main_text": "📖 **ヘルプメニュー**\n\n以下の保護カテゴリを選択してください。",
+  "help_categories": {
+    "protection": "保護機能",
+    "members": "メンバー",
+    "nsfw": "NSFWガード",
+    "flood": "連投防止",
+    "link": "リンク防止",
+    "warnings": "警告機能",
+    "lockdown": "緊急ロック",
+    "commands": "コマンド"
+  },
+  "help_details": {
+    "prot": "🛡️ **保護機能**\n\n悪意のある攻撃、ボットによるレイド、スパム転送を強力に遮断します。",
+    "mem": "👤 **メンバー管理**\n\n新規参加者の確認、ウェルカムメッセージ、キャプチャ認証を設定できます。",
+    "nsfw": "📖 **NSFWガード**\n\n不適切なメディア（画像/動画/GIF）を自動検知して削除し、送信者をミュートします。",
+    "flood": "🌊 **連投防止**\n\nメッセージの連続送信を制限し、チャットの秩序を保ちます。",
+    "link": "🔗 **リンク防止**\n\nTelegram招待リンクや外部URLを自動的に削除します。",
+    "warn": "⚠️ **警告機能**\n\n警告ポイントを累積し、段階的な処罰（ミュート、キック、BAN）を実行します。",
+    "lock": "🔒 **緊急ロック**\n\nレイド攻撃時にグループの書き込みやメディア送信権限を即座に停止します。",
+    "cmds": "📖 **コマンド一覧**\n\n**管理者コマンド:** `/status` `/config` `/duration 24h` `/newmember on` `/antilink on` `/antiflood on` `/nsfw on` `/lockdown on` `/warn` `/unwarn` `/warnings` `/whitelist` `/unwhitelist` `/setbadword` `/delbadword` `/badwords`"
+  },
+  "lang_selected": "🌐 言語を日本語に設定しました。"
+}
