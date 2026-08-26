@@ -1,0 +1,35 @@
+{
+  "buttons": {
+    "add_me": "Añádeme",
+    "source": "Código",
+    "support": "Soporte",
+    "help": "Ayuda",
+    "owner": "Dueño",
+    "language": "Idioma",
+    "back": "Volver"
+  },
+  "home_text": "🛡️ **SUPER GUARDIAN BOT**\n\n⚡ **Seguridad de Nueva Generación para Grupos de Telegram**\n\n**Rápido · Potente · Automatizado**",
+  "source_text": "📡 **Código Fuente**\n\nEnlaces oficiales y repositorio de Super Guardian Bot.",
+  "help_main_text": "📖 **Ayuda**\n\nSelecciona una categoría de protección a continuación.",
+  "help_categories": {
+    "protection": "Protección",
+    "members": "Miembros",
+    "nsfw": "Guardia NSFW",
+    "flood": "Anti-Flood",
+    "link": "Anti-Enlaces",
+    "warnings": "Advertencias",
+    "lockdown": "Bloqueo",
+    "commands": "Comandos"
+  },
+  "help_details": {
+    "prot": "🛡️ **Protección**\n\nEscudo avanzado contra ataques maliciosos, incursiones automatizadas y reenvíos masivos.",
+    "mem": "👤 **Miembros**\n\nVerifica nuevos usuarios, configura mensajes de bienvenida y activa captchas de entrada.",
+    "nsfw": "📖 **Guardia NSFW**\n\nFiltro inteligente para fotos/videos/GIFs. Los archivos explícitos se eliminan y el remitente es silenciado.",
+    "flood": "🌊 **Anti-Flood**\n\nControla la frecuencia de mensajes para evitar el spam masivo en el chat.",
+    "link": "🔗 **Anti-Enlaces**\n\nFiltra automáticamente enlaces de invitación de Telegram y páginas externas no autorizadas.",
+    "warn": "⚠️ **Advertencias**\n\nSistema de faltas acumulativas con castigos configurables (silenciar, expulsar, banear).",
+    "lock": "🔒 **Bloqueo de Emergencia**\n\nBloquea inmediatamente permisos específicos de medios o el envío de mensajes durante ataques.",
+    "cmds": "📖 **Comandos**\n\n**Comandos Admin:** `/status` `/config` `/duration 24h` `/newmember on` `/antilink on` `/antiflood on` `/nsfw on` `/lockdown on` `/warn` `/unwarn` `/warnings` `/whitelist` `/unwhitelist` `/setbadword` `/delbadword` `/badwords`"
+  },
+  "lang_selected": "🌐 Idioma configurado en Español."
+}
