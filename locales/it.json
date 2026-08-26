@@ -1,0 +1,35 @@
+{
+  "buttons": {
+    "add_me": "Aggiungimi",
+    "source": "Sorgente",
+    "support": "Supporto",
+    "help": "Guida",
+    "owner": "Proprietario",
+    "language": "Lingua",
+    "back": "Indietro"
+  },
+  "home_text": "🛡️ **SUPER GUARDIAN BOT**\n\n⚡ **Sicurezza per Gruppi Telegram di Nuova Generazione**\n\n**Veloce · Potente · Automatizzato**",
+  "source_text": "📡 **Sorgente**\n\nLink ufficiali e repository di Super Guardian Bot.",
+  "help_main_text": "📖 **Guida**\n\nScegli una categoria di protezione qui sotto.",
+  "help_categories": {
+    "protection": "Protezione",
+    "members": "Membri",
+    "nsfw": "Protezione NSFW",
+    "flood": "Anti-Flood",
+    "link": "Anti-Link",
+    "warnings": "Avvisi",
+    "lockdown": "Blocco",
+    "commands": "Comandi"
+  },
+  "help_details": {
+    "prot": "🛡️ **Protezione**\n\nScudo avanzato contro raid automatizzati, attacchi bot e spam di inoltri.",
+    "mem": "👤 **Membri**\n\nVerifica nuovi utenti, messaggi di benvenuto e configurazione dei captcha.",
+    "nsfw": "📖 **Protezione NSFW**\n\nRimozione istantanea di contenuti espliciti e silenziamento dell'utente.",
+    "flood": "🌊 **Anti-Flood**\n\nControllo della frequenza dei messaggi per mantenere ordinata la chat.",
+    "link": "🔗 **Anti-Link**\n\nBlocco automatico di link d'invito Telegram e domini esterni non autorizzati.",
+    "warn": "⚠️ **Avvisi**\n\nSistema di richiami con penalità progressive (mute, kick, ban).",
+    "lock": "🔒 **Blocco**\n\nBlocco immediato dei permessi del gruppo in situazioni di emergenza.",
+    "cmds": "📖 **Comandi**\n\n**Comandi Admin:** `/status` `/config` `/duration 24h` `/newmember on` `/antilink on` `/antiflood on` `/nsfw on` `/lockdown on` `/warn` `/unwarn` `/warnings` `/whitelist` `/unwhitelist` `/setbadword` `/delbadword` `/badwords`"
+  },
+  "lang_selected": "🌐 Lingua impostata su Italiano."
+}
