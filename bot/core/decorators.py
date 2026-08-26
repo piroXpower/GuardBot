@@ -98,4 +98,4 @@ def rate_limit(seconds: int = 2) -> Callable[[F], F]:
 
         return cast(F, wrapper)
     return decorator
-              
+        
